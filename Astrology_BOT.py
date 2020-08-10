@@ -62,11 +62,7 @@ def break_line(image,max_lines,text,x,text_width):
 
 
 # uhhh sorry u have to see this mess , to sum it up this function that draw the posts pics.
-def make_pic():
-    global i
-    if i == 12: i = 0
-    signs = ["aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "pisces"]
-    ruler = ["Mars","Venus","Mercury","Moon","Sun","Mercury","Venus","Mars","Jupiter","Saturn","Saturn","Jupiter"]
+def make_pic(sign):
     query = random.choice(["universe","space","galaxy","stars","night-sky"])
     response = requests.get(f"https://source.unsplash.com/featured/?{query}")
     image = Image.open(BytesIO(response.content))
@@ -82,9 +78,9 @@ def make_pic():
     font4= ImageFont.truetype('fonts/titles_font.otf', size=70) #big titles font
     font5= ImageFont.truetype('fonts/normal_font.ttf', size=50) #numbers font
 
-    stroke_text(image, font, signs[i], color="#620E0E" ,width=centre_text(signs[i], font, d), height=20,stroke_color="black")
-    d.multiline_text((centre_text(ruler[i], font2, d), 130), ruler[i], font=font2, fill='black',align='left')
-    info_planet=planet_info(ruler[i])
+    stroke_text(image, font, sign, color="#620E0E" ,width=centre_text(sign, font, d), height=20,stroke_color="black")
+    d.multiline_text((centre_text(ruler_planet(sign), font2, d), 130), ruler_planet(sign), font=font2, fill='black',align='left')
+    info_planet=planet_info(ruler_planet(sign))
     d.multiline_text((centre_text(f"(Longitude : {info_planet[0]} - Position : {info_planet[1]} - Degree : {info_planet[2]})", font3, d), 198), f"(Longitude : {info_planet[0]} - Position : {info_planet[1]} - Degree : {info_planet[2]})", font=font3, fill='black',align='left')
     stroke_text(image, font4, "Horoscope:", color="#A8A35A", width=75, height=280,stroke_color="black")
     stroke_text(image, font4, "Compatibility:", color="#A8A35A", width=740, height=280, stroke_color="black")
@@ -113,19 +109,18 @@ def make_pic():
     y_paste = int(585 - (si_height / 2))
     image.paste(source_image, (x_paste, y_paste), mask=source_image)
     image.save('finished.png', quality=95)
-    i+=1
-    return signs[i]
+
 
 
 
 # function to comment with a picture
 def comment_pic(path, id,message):
-    params = (("message", message ),("access_token", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" ),)
+    params = (("message", message ),("access_token", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" ),)
     files = {"source": (path.split("/")[-1], open(path,"rb"), "application/vnd.ms-excel", {"Expires": "0"})}
     requests.post(f"https://graph.facebook.com/v7.0/{id}/comments", params=params, files=files)
 
 
-# get a random cursed word from nearly 100 words
+# get a random cursed word from nearly 100 wordsXX
 def random_cursed_word():
     words=["Food","Hero","Dildo","Daddy","Sluty","Drunk","PP","Weed","Sad","Happy","Satan","Evil","Angel","The game","ISIS","Vodka","Brazzers","Gaming","Oof","Cum","Piss","Pussy","Dick","Poop","69","Ass","Obama","Trump","Bruh","Based","King","Queen","Hoe","USSR","Tiktok","Pornhub","Penis","Balls","Onlyfans","Memes","Anime","Hentai","Loser", "Dead","Racist","Tits","Chlong","Honk","Bonk","Idiot","Bitch","Shit","Fun","Mood","Bastard","MF","MILF","Incest","Anal","Sex","Work","Job","Fuck","Ok","Yeah","Potato","No","Gay","Trans","Kim jong","Insta","Family","Friends"]
     return random.choice(words)
@@ -177,14 +172,26 @@ def planet_info(name):
     return [b['longitude'], b['position'], b['degree']]
 
 
+# get the apoopiriet ruler planet for a given sign
+def ruler_planet(sign):
+    dictionnary = {"aries":"Mars", "taurus":"Venus", "gemini":"Mercury", "cancer":"Moon", "leo":"Sun", "virgo":"Mercury", "libra":"Venus", "scorpio":"Mars", "sagittarius":"Jupiter", "capricorn":"Saturn","aquarius":"Saturn", "pisces": "Jupiter"}
+    return dictionnary[sign]
+
 
 if __name__ == '__main__':
     i = random.randint(0,11)
-    token = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+    token = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
     graph = facebook.GraphAPI(token)
+    signs = ["aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn",
+             "aquarius", "pisces"]
+    ruler = ["Mars", "Venus", "Mercury", "Moon", "Sun", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Saturn",
+             "Jupiter"]
     while True:
+        if i == 12: i = 0
+        signs = ["aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn","aquarius", "pisces"]
         black_list = set()
-        the_sign=make_pic()
+        the_sign=signs[i]
+        make_pic(the_sign)
         msg=f'{sign_to_emoji(the_sign)} {the_sign.capitalize()} horoscope for today the {datetime.datetime.now().strftime("%d-%m-%Y")}.\nYou can try the bot comments commands.(check all the available commandes on the first comment.)'
         while True:
             try:
@@ -199,7 +206,7 @@ if __name__ == '__main__':
         sleep_secondes = 15
         data_length = 0
         data=[]
-        while timeNow <6000:
+        while timeNow <60:
             try:
                 data = graph.get_connections(id=post_id, connection_name='comments')['data']
                 if len(data) > 0:
@@ -212,8 +219,7 @@ if __name__ == '__main__':
                             timeNow += 5
             except:
                 print("error while getting data or while commenting")
-                      
-            #that's just a system to increase sleeping time gradually to prevent the zuck
+
             if len(data) > data_length : sleep_secondes = 15
             else:
                 if sleep_secondes <= 240: sleep_secondes += 2
@@ -221,3 +227,4 @@ if __name__ == '__main__':
             print(f"going time sleep for {sleep_secondes} secondes")
             time.sleep(sleep_secondes)
             timeNow += sleep_secondes
+        i += 1
