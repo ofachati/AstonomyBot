@@ -123,7 +123,7 @@ def draw_text(setup, name, image):
     draw = ImageDraw.Draw(image)
     font2 = ImageFont.truetype("fonts/light_year_font.ttf", int(setup['canvas'][1] / 40))
     font = ImageFont.truetype("fonts/titles_font.otf", 500 )
-    draw.text((50, 3900), f"*the distance between {name} and Earth is {str(randint(40,100000))} light year ", (255, 255, 255),font=font2)
+    draw.text((50, 3900), f"*the distance between {name} and Earth is {str(randint(40,100000))} light years ", (255, 255, 255),font=font2)
     stroke_text(image, font, name, color="white", width=centre_text(name, font, draw), height=400 ,stroke_color="black")
 
 
