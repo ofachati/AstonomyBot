@@ -203,16 +203,17 @@ if __name__ == '__main__':
             try:
                 data = graph.get_connections(id=post_id, connection_name='comments')['data']
                 if len(data) > 0:
-                    for i in data:
-                        if i['id'] not in black_list:
-                            black_list.add(i['id'])
-                            text = graph.get_object(id=i['id'], fields='message')['message']
-                            reply_to_comment(text.lower(), i['id'])
+                    for j in data:
+                        if j['id'] not in black_list:
+                            black_list.add(j['id'])
+                            text = graph.get_object(id=j['id'], fields='message')['message']
+                            reply_to_comment(text.lower(), j['id'])
                             time.sleep(5)
                             timeNow += 5
             except:
                 print("error while getting data or while commenting")
-
+                      
+            #that's just a system to increase sleeping time gradually to prevent the zuck
             if len(data) > data_length : sleep_secondes = 15
             else:
                 if sleep_secondes <= 240: sleep_secondes += 2
