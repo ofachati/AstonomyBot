@@ -202,7 +202,7 @@ if __name__ == '__main__':
         sleep_secondes = 15
         data_length = 0
         data=[]
-        while timeNow <60:
+        while timeNow <6000:
             try:
                 data = graph.get_connections(id=post_id, connection_name='comments')['data']
                 if len(data) > 0:
