@@ -182,13 +182,9 @@ if __name__ == '__main__':
     i = random.randint(0,11)
     token = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
     graph = facebook.GraphAPI(token)
-    signs = ["aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn",
-             "aquarius", "pisces"]
-    ruler = ["Mars", "Venus", "Mercury", "Moon", "Sun", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Saturn",
-             "Jupiter"]
+    signs = ["aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "pisces"]
     while True:
         if i == 12: i = 0
-        signs = ["aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn","aquarius", "pisces"]
         black_list = set()
         the_sign=signs[i]
         make_pic(the_sign)
