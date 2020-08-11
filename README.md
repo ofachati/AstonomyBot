@@ -1,15 +1,15 @@
 # AstonomyBot
 
-a facebook bot post 12 pictures a day (1 for each zodiac sign) 
+a facebook bot that posts 12 pictures a day (1 for each zodiac sign) 
 
 ## I) What do the pictures contain and how are they made? 
 First the bot take a  high resolution space picture from unsplash.com
 Then put on it the following things:
-###- the ruller planet : 
-every zodiac sign haz a planet that rules it . So in every pictures theres the appropriate planet for the zodiac sign and also the current information of the planet  (longitude , position , degree) these informations are real ( the only real thing in the picture the rest is generated ) that i get every time i post using an api.
 - horoscope: a random generated horoscope using markov chain (the text sample is nearly 1500 quotes and real horoscopes)
 - compatibility : wish is a random source image and it’s name
 - luck : is represented as a % . The luck in 4 aspects ( 1)money - 2)life - 3)love -4) the fourth aspect is random word from a cursed list of words ). The luck is represented as a percentage. The percentage change ( red if luck <20% - orange if 20%<luck <60% - green if luck>60 %).
+- the ruller planet : every zodiac sign haz a planet that rules it . So in every pictures theres the appropriate planet for the zodiac sign and also the current information of the planet  (longitude , position , degree) these informations are real ( the only real thing in the picture the rest is generated ) that i get every time i post using an api.
+
 
 ## II) COMMENTS COMMANDS
 The bot has also the comments commands that the bot reply to them with the appropriate reply.
